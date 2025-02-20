@@ -7,7 +7,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface TareaService {
-    @POST("tarea")
+    @POST("tarea/")
     fun getAll(): Call<List<Tarea>>
 
     @POST("tarea/add")

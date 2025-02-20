@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent" android:id="@+id/linearLayout">
+
+    <TextView
+            android:text="Nombre:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/txtNombre2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="44dp" app:layout_constraintEnd_toStartOf="@+id/lblNombre"
+            android:layout_marginEnd="36dp"/>
+    <TextView
+            android:text="Prioridad: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/txtPrioridad2"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtNombre2" app:layout_constraintEnd_toStartOf="@+id/lblPrioridad"
+            android:layout_marginEnd="28dp"/>
+    <TextView
+            android:text="Descripcion: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/txtDescripcion2"
+            android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtPrioridad2"
+            app:layout_constraintEnd_toStartOf="@+id/lblDescripcion" android:layout_marginEnd="12dp"/>
+    <TextView
+            android:layout_width="130dp"
+            tools:text="Rulas"
+            android:layout_height="22dp" android:id="@+id/lblNombre"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="44dp" android:layout_marginEnd="164dp" app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:layout_width="101dp"
+            tools:text="1"
+            android:layout_height="21dp" android:id="@+id/lblPrioridad"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/lblNombre" android:layout_marginEnd="192dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:layout_width="213dp"
+            tools:text="Algo"
+            android:layout_height="95dp" android:id="@+id/lblDescripcion"
+            android:layout_marginTop="64dp"
+            app:layout_constraintTop_toBottomOf="@+id/lblNombre" android:layout_marginEnd="80dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

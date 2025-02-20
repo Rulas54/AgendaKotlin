@@ -7,7 +7,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ContactoService {
-    @POST("contacto")
+    @POST("contacto/")
     fun getAll(): Call<List<Contacto>>
 
     @POST("contacto/add")

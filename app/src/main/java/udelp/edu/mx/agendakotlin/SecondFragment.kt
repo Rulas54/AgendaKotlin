@@ -28,7 +28,7 @@ class SecondFragment : Fragment() {
         return binding.root
 
     }
-
+    /*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,4 +41,7 @@ class SecondFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+     */
+
 }
+

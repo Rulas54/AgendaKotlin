@@ -13,8 +13,8 @@ class TareaAdapter(private val tareas : List<Tarea>) : RecyclerView.Adapter<Tare
 
     class TareaHolder(val view: View) : RecyclerView.ViewHolder(view){
         private val lblNombre : TextView = view.findViewById(R.id.lblNombre)
-        private val lblPrioridad : TextView = view.findViewById(R.id.lblNombre)
-        private val lblDescripcion : TextView = view.findViewById(R.id.lblNombre)
+        private val lblPrioridad : TextView = view.findViewById(R.id.lblPrioridad)
+        private val lblDescripcion : TextView = view.findViewById(R.id.txtDescripcion)
         private var tareaActual: Tarea = Tarea(0,"","","",0)
 
 

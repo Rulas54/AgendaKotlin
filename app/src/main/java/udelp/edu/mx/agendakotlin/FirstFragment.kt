@@ -62,22 +62,7 @@ class FirstFragment : Fragment() {
             }
         })
 
-        api.getAll().enqueue(object : Callback<List<Tarea>> {
-            override fun onResponse(call: Call<List<Tarea>>, response: Response<List<Tarea>>) {
-                Log.d("tarea",call.request().url().toString())
-                if (response.isSuccessful) {
-                    response.body()?.let {tareas ->
-                        for (t in tareas){
-                            Log.d("Tarea", "ID: ${tarea.id}, Nombre: ${tarea.nombre}")
-                        }
-                    }
-                }
-            }
 
-            override fun onFailure(call: Call<List<Tarea>>, t: Throwable) {
-                Log.e("Error", "Error en el API: ${t.message}")
-            }
-        })
 
         binding.btnAceptar.setOnClickListener {
             val nombre : TextView = view.findViewById<TextView>(R.id.txtNombre)

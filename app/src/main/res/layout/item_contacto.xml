@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content" android:id="@+id/linearLayout2">
+
+    <TextView
+            android:text="Nombre:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/txtNombre3"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="28dp"/>
+    <TextView
+            android:text="Correo Electronico: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/txtCorreo"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/txtNombre3"/>
+    <TextView
+            android:text="Fecha de nacimiento:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/txtFecha"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp" app:layout_constraintTop_toBottomOf="@+id/txtCorreo"/>
+    <TextView
+            android:text="Direccion:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/txtDireccion"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp" app:layout_constraintTop_toBottomOf="@+id/txtFecha"/>
+    <TextView
+            android:text="Fotografia:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/txtFoto"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="14dp"
+            android:layout_marginTop="18dp" app:layout_constraintTop_toBottomOf="@+id/txtDireccion"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            tools:text="Rulas"
+            android:layout_height="wrap_content" android:id="@+id/lblNombre2"
+            android:layout_marginStart="29dp" app:layout_constraintStart_toEndOf="@+id/txtNombre3"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="30dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="224dp"
+            android:layout_height="25dp" android:id="@+id/lblCorreo"
+            tools:text="luisraulreyes@gmail.com"
+            android:layout_marginStart="11dp" app:layout_constraintStart_toEndOf="@+id/txtCorreo"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="69dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            tools:text="2001-04-10"
+            android:layout_height="wrap_content" android:id="@+id/lblFecha"
+            android:layout_marginStart="18dp" app:layout_constraintStart_toEndOf="@+id/txtFecha"
+            android:layout_marginTop="22dp" app:layout_constraintTop_toBottomOf="@+id/lblCorreo"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="298dp"
+            tools:text="Animas 16"
+            android:layout_height="16dp" android:id="@+id/lblDireccion"
+            android:layout_marginStart="21dp" app:layout_constraintStart_toEndOf="@+id/txtDireccion"
+            android:layout_marginTop="21dp" app:layout_constraintTop_toBottomOf="@+id/txtFecha"/>
+    <ImageView
+            android:layout_width="92dp"
+            android:layout_height="86dp" app:srcCompat="@android:drawable/presence_busy"
+            android:id="@+id/imageFoto" android:layout_marginStart="14dp"
+            app:layout_constraintStart_toEndOf="@+id/txtFoto" android:layout_marginTop="23dp"
+            app:layout_constraintTop_toBottomOf="@+id/lblDireccion"/>
+    <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+            android:text="Telefono:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/txtTelefono"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="14dp"
+            android:layout_marginTop="129dp" app:layout_constraintTop_toBottomOf="@+id/txtFoto"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="298dp"
+            android:layout_height="21dp" android:id="@+id/lblTelefono"
+            tools:text="3318715804"
+            android:layout_marginStart="15dp" app:layout_constraintStart_toEndOf="@+id/txtTelefono"
+            android:layout_marginTop="61dp" app:layout_constraintTop_toBottomOf="@+id/imageFoto"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

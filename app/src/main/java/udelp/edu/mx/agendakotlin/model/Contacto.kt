@@ -1,7 +1,7 @@
 package udelp.edu.mx.agendakotlin.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.Date
+
 
 data class Contacto(
     @SerializedName("id") val id: Long,

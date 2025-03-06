@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import udelp.edu.mx.agendakotlin.databinding.FragmentFirstBinding
+import udelp.edu.mx.agendakotlin.databinding.FragmentMainBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -13,13 +16,18 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [fragment_contacto.newInstance] factory method to
+ * Use the [MainFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class fragment_contacto : Fragment() {
+class MainFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var _binding: FragmentMainBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +41,21 @@ class fragment_contacto : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contacto, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.btnTarea.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_SecondFragment)
+        }
+
+        binding.btnContacto.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_contactoFragment)
+        }
     }
 
     companion object {
@@ -44,12 +65,12 @@ class fragment_contacto : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment fragment_contacto.
+         * @return A new instance of fragment MainFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            fragment_contacto().apply {
+            MainFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

@@ -72,6 +72,9 @@ class SecondFragment : Fragment() {
                 Log.e("Error", "Error en el API: ${t.message}")
             }
         })
+        binding.btnAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
     }
 
     override fun onDestroyView() {

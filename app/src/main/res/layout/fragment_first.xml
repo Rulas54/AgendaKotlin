@@ -51,11 +51,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/btnAceptar"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:icon="@android:drawable/ic_input_add" app:iconTint="#4CAF50"/>
+        <Button
+                android:text="Ver Contactos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/btnVerContactos"
+                app:icon="@android:drawable/ic_menu_myplaces" app:iconTint="#FFFFFF"
+                style="@style/Widget.AppCompat.Button" android:background="#F0F0F0" android:backgroundTint="#EFEFEF"
+        />
         <Button
                 android:text="Ver todos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/btnVerTodos"
-                style="@style/Widget.AppCompat.Button"/>
+                style="@style/Widget.AppCompat.Button" android:backgroundTint="#FFFFFF"
+                app:icon="@android:drawable/ic_dialog_info"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

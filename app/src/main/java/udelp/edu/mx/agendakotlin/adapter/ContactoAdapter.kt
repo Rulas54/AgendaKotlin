@@ -17,7 +17,7 @@ class ContactoAdapter(private val  contactos : List<Contacto>) : RecyclerView.Ad
         private val lblFecha : TextView = view.findViewById(R.id.lblFecha)
         private val lblDireccion : TextView = view.findViewById(R.id.lblDireccion)
         private val lblTelefono : TextView = view.findViewById(R.id.lblTelefono)
-        private val imageFoto : ImageView = view.findViewById(R.id.imageFoto)
+        //private val imageFoto : ImageView = view.findViewById(R.id.imageFoto)
         private var contactoActual : Contacto = Contacto(0,"","","","","","")
 
         init {
@@ -38,13 +38,10 @@ class ContactoAdapter(private val  contactos : List<Contacto>) : RecyclerView.Ad
                 text = contacto.fechaNacimiento
             }
             lblDireccion.apply {
-                text = contacto.telefono
+                text = contacto.direccion
             }
             lblTelefono.apply {
-                text = contacto.telefono
-            }
-            imageFoto.apply {
-                //Falta saber como hacer esto
+                text = contacto.numeroTelfono
             }
         }
 

@@ -95,6 +95,10 @@ class FirstFragment : Fragment() {
         binding.btnVerTodos.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
+        binding.btnVerContactos.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_contactoFragment)
+        }
     }
 
     override fun onDestroyView() {

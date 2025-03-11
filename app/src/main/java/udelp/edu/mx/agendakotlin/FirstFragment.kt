@@ -77,7 +77,9 @@ class FirstFragment : Fragment() {
             api.add(tarea).enqueue(object : Callback<Tarea> {
                 override fun onResponse(call: Call<Tarea>, response: Response<Tarea>) {
                     if(response.isSuccessful) {
+                        Toast.makeText(context,"Tarea agregada",Toast.LENGTH_SHORT).show()
                         Log.d("Tarea", response.body().toString())
+                        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
                     }
                 }
                 override fun onFailure(call: Call<Tarea>, t: Throwable) {

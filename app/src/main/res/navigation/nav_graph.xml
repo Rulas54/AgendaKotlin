@@ -28,11 +28,11 @@
         <action android:id="@+id/action_SecondFragment_to_mainFragment" app:destination="@id/mainFragment"/>
     </fragment>
     <fragment android:id="@+id/contactoFragment" android:name="udelp.edu.mx.agendakotlin.ContactoFragment"
-              android:label="ContactoFragment">
+              android:label="@string/list_contactos">
         <action android:id="@+id/action_contactoFragment_to_mainFragment" app:destination="@id/mainFragment"/>
     </fragment>
     <fragment android:id="@+id/mainFragment" android:name="udelp.edu.mx.agendakotlin.MainFragment"
-              android:label="fragment_main" tools:layout="@layout/fragment_main">
+              android:label="@string/mainActivity" tools:layout="@layout/fragment_main">
         <action android:id="@+id/action_mainFragment_to_SecondFragment" app:destination="@id/SecondFragment"/>
         <action android:id="@+id/action_mainFragment_to_contactoFragment" app:destination="@id/contactoFragment"/>
     </fragment>

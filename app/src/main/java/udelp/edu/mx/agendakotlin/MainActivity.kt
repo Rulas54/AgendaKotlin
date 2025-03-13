@@ -1,5 +1,6 @@
 package udelp.edu.mx.agendakotlin
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import udelp.edu.mx.agendakotlin.databinding.ActivityMainBinding
+import udelp.edu.mx.agendakotlin.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -51,8 +53,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when (p0.itemId) {
-            R.id.nav_home -> {supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, MainFragment()).commit()}
+            R.id.nav_home -> {
+                //supportFragmentManager.beginTransaction()
+                //.replace(R.id.fragment_container, MainFragment()).commit()
+                intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra("variable", "valor")
+                startActivity(intent)
+                finish()
+                }
             R.id.nav_tarea -> {supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, FirstFragment()).commit()}
             R.id.nav_contacto -> {supportFragmentManager.beginTransaction()

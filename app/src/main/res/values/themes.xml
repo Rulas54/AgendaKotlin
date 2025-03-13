@@ -30,4 +30,10 @@
         <!--- Status Bar Color -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
+    <style name="Theme.MainActivity.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.MainActivity.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.MainActivity.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

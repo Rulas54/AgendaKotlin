@@ -5,6 +5,9 @@
     <string name="first_fragment_label">Agregar Tarea</string>
     <string name="second_fragment_label">Tareas</string>
     <string name="list_contactos">Contactos</string>
+    <string name="menu_contacto">Menu Contactos</string>
+    <string name="menu_home">Menu</string>
+    <string name="menu_tarea">Menu Tareas</string>
     <string name="mainActivity">Menu</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>

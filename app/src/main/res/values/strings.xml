@@ -54,10 +54,18 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="prompt_email">Correo Electronico</string>
     <string name="prompt_password">Contraseña</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="action_sign_in_short">Registrarse</string>
     <string name="welcome">"Bienvenido !"</string>
     <string name="invalid_username">Usuario no valido</string>
     <string name="invalid_password">La contraseña debe ser de más de 5 caracteres</string>
-    <string name="login_failed">"Sign In Failed"</string>
+    <string name="login_failed">"Registro Fallido"</string>
+    <string name="btn_registrarse">Registrarse</string>
+    <string name="btn_olvide_passwd">Olvide Contraseña</string>
+    <string name="confirmar_passwd">Confirmar Contraseña</string>
+    <string name="Aplicar_Passwd">Aplicar Contraseña</string>
+    <string name="nueva_passwd">Nueva Contraseña</string>
+    <string name="txt_nombre">Nombre</string>
+    <string name="txt_apellido_paterno">Apellido Paterno</string>
+    <string name="txt_apellido_materno">Apellido Materno</string>
 </resources>

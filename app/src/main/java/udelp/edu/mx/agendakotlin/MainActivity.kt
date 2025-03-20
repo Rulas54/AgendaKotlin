@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .replace(R.id.fragment_container, ContactoFragment()).commit()}
         }
         navDrawer.closeDrawer(GravityCompat.START)
+
         return true
     }
 }

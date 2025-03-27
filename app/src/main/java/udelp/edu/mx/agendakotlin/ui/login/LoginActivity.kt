@@ -12,13 +12,17 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import udelp.edu.mx.agendakotlin.databinding.ActivityLoginBinding
 
 import udelp.edu.mx.agendakotlin.R
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +31,20 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val username = binding.username
-        val password = binding.password
-        val loading = binding.loading
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+        //Jale por medio de codigo el AppBar
+        setSupportActionBar(binding.toolbar)
+
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
     }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
+    }
 }
+
 

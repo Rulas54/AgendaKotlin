@@ -58,6 +58,7 @@ class FirstFragment : Fragment() {
                     Log.d("Tarea", response.body().toString())
                 }
             }
+
             override fun onFailure(call: Call<Tarea>, t: Throwable) {
                 Log.e("Error", "Error en la API: ${t.message}", t)
             }

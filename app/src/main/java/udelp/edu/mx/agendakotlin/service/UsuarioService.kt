@@ -18,11 +18,12 @@ interface UsuarioService {
     @POST("usuario/get/{id}")
     fun getUsuario(@Path("id") id: String): Call<Usuario>
 
-    @POST("usuario/recuperar-password/{id}")
-    fun recuperarPassword(@Path("id") id: Long, @Body usuario: Usuario): Call<Usuario>
+    @POST("usuario/recuperar-password")
+    fun recuperarPassword(@Body usuario: Usuario): Call<Usuario>
 
     @POST("usuario/login")
     fun login(@Body usuario: Usuario): Call<Usuario>
+
 
 
 

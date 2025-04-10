@@ -10,18 +10,4 @@
             android:layout_height="164dp" android:id="@+id/imageView3"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="108dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="73dp"/>
-    <Button
-            android:text="Tareas"
-            android:layout_width="240dp"
-            android:layout_height="62dp" android:id="@+id/btnTarea"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="84dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="384dp"
-            app:icon="@android:drawable/ic_menu_agenda"/>
-    <Button
-            android:text="Contactos"
-            android:layout_width="240dp"
-            android:layout_height="58dp" android:id="@+id/btnContacto"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="88dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="289dp"
-            app:icon="@android:drawable/ic_menu_my_calendar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,8 +9,8 @@
     <EditText
             android:layout_width="341dp"
             android:layout_height="46dp"
+            android:hint="Confirmar Constraseña"
             android:inputType="textPassword"
-            android:text="@string/confirmar_passwd"
             android:ems="10"
             android:id="@+id/txt_apply_passwd"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
@@ -18,8 +18,8 @@
     <EditText
             android:layout_width="341dp"
             android:layout_height="46dp"
+            android:hint="Nueva Constraseña"
             android:inputType="textPassword"
-            android:text="@string/nueva_passwd"
             android:ems="10"
             android:id="@+id/txt_newpasswd"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
@@ -28,7 +28,7 @@
             android:layout_width="341dp"
             android:layout_height="46dp"
             android:inputType="text"
-            android:text="@string/prompt_email"
+            android:hint="@string/prompt_email"
             android:ems="10"
             android:id="@+id/txt_email"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"

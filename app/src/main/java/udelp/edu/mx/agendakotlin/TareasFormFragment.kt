@@ -2,7 +2,6 @@ package udelp.edu.mx.agendakotlin
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import udelp.edu.mx.agendakotlin.model.Tarea
 import udelp.edu.mx.agendakotlin.client.Clients
-import udelp.edu.mx.agendakotlin.databinding.FragmentFirstBinding
+import udelp.edu.mx.agendakotlin.databinding.FragmentTareasFormBinding
 import udelp.edu.mx.agendakotlin.service.TareaService
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -26,9 +24,9 @@ import java.util.Locale
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class TareasFormFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentTareasFormBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,7 +37,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentTareasFormBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -97,11 +95,13 @@ class FirstFragment : Fragment() {
         }
 
         binding.btnVerTodos.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            activity?.supportFragmentManager?.beginTransaction()!!
+                .replace(R.id.fragment_container, TareasViewFragment()).commit()
         }
 
         binding.btnVerContactos.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_contactoFragment)
+            activity?.supportFragmentManager?.beginTransaction()!!
+                .replace(R.id.fragment_container, ContactoFragment()).commit()
         }
     }
 

@@ -14,7 +14,7 @@ import retrofit2.Response
 import udelp.edu.mx.agendakotlin.adapter.ContactoAdapter
 import udelp.edu.mx.agendakotlin.client.Clients
 import udelp.edu.mx.agendakotlin.databinding.FragmentContactoBinding
-import udelp.edu.mx.agendakotlin.databinding.FragmentSecondBinding
+import udelp.edu.mx.agendakotlin.databinding.FragmentTareasViewBinding
 import udelp.edu.mx.agendakotlin.model.Contacto
 import udelp.edu.mx.agendakotlin.service.ContactoService
 

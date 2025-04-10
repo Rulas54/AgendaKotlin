@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import udelp.edu.mx.agendakotlin.databinding.FragmentFirstBinding
+import udelp.edu.mx.agendakotlin.databinding.FragmentTareasFormBinding
 import udelp.edu.mx.agendakotlin.databinding.FragmentMainBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -48,14 +48,8 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.btnTarea.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_SecondFragment)
-        }
 
-        binding.btnContacto.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_contactoFragment)
-        }
+
     }
 
     companion object {

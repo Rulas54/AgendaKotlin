@@ -45,10 +45,10 @@ class RegistrarseFragment : Fragment() {
         val btn_aceptar = view.findViewById<Button>(R.id.btn_aceptar)
         btn_aceptar.setOnClickListener {
 
-            val ususario = Usuario(null,nombre.text.toString(),apellidoMaterno.text.toString(), apellidoPaterno.text.toString()
+            val usuario = Usuario(null,nombre.text.toString(),apellidoMaterno.text.toString(), apellidoPaterno.text.toString()
                                     ,email.text.toString(),password.text.toString(),"","")
 
-            api.addUsuario(ususario).enqueue(object : Callback<Usuario>{
+            api.addUsuario(usuario).enqueue(object : Callback<Usuario>{
                 override fun onResponse(call: Call<Usuario?>, response: Response<Usuario?>) {
 
                     if (response.isSuccessful) {

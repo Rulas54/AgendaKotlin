@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -14,16 +13,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import udelp.edu.mx.agendakotlin.adapter.TareaAdapter
 import udelp.edu.mx.agendakotlin.client.Clients
-import udelp.edu.mx.agendakotlin.databinding.FragmentSecondBinding
+import udelp.edu.mx.agendakotlin.databinding.FragmentTareasViewBinding
 import udelp.edu.mx.agendakotlin.model.Tarea
 import udelp.edu.mx.agendakotlin.service.TareaService
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class TareasViewFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentTareasViewBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -36,7 +35,7 @@ class SecondFragment : Fragment() {
 
     ): View {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentTareasViewBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -73,7 +72,8 @@ class SecondFragment : Fragment() {
             }
         })
         binding.btnAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            activity?.supportFragmentManager?.beginTransaction()!!
+                .replace(R.id.fragment_container, TareasFormFragment()).commit()
         }
     }
 

@@ -19,6 +19,7 @@ import udelp.edu.mx.agendakotlin.service.TareaService
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.math.log
 
 
 /**
@@ -26,17 +27,26 @@ import java.util.Locale
  */
 class TareasFormFragment : Fragment() {
 
+    private var tareaId: Long? = null
     private var _binding: FragmentTareasFormBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            tareaId = it.getLong("Tarea_ID")
+        }
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentTareasFormBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -49,19 +59,40 @@ class TareasFormFragment : Fragment() {
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
         var tarea : Tarea = Tarea(null,date,"Luis","Algo",1)
         val api = Clients.instance(view.context).create(TareaService::class.java)
+        Log.e(tareaId.toString(),tareaId.toString())
 
-        api.add(tarea).enqueue(object : Callback<Tarea> {
-            override fun onResponse(call: Call<Tarea>, response: Response<Tarea>) {
-                if(response.isSuccessful) {
-                    Log.d("Tarea", response.body().toString())
+
+        if (null != tareaId && tareaId != 0L){
+            val api = Clients.instance(view.context).create(TareaService::class.java)
+            api.get(tareaId!!).enqueue(object : Callback<Tarea> {
+                override fun onResponse(p0: Call<Tarea>, response: Response<Tarea>) {
+                    if (response.isSuccessful){
+                        val tarea = response.body()
+
+                        val lblNombre: TextView = view.findViewById<TextView>(R.id.txtNombre)
+                        lblNombre.apply {
+                            text = tarea?.nombre
+                        }
+
+                        val lblPrioridad: TextView = view.findViewById<TextView>(R.id.txtPrioridad)
+                        lblPrioridad.apply {
+                            text = tarea?.prioridad.toString()
+                        }
+
+                        val lblDescripción: TextView = view.findViewById<TextView>(R.id.txtDescripcion)
+                        lblDescripción.apply {
+                            text = tarea?.descripcion
+                        }
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<Tarea>, t: Throwable) {
-                Log.e("Error", "Error en la API: ${t.message}", t)
-            }
-        })
+                override fun onFailure(p0: Call<Tarea>, p1: Throwable) {
 
+                }
+            })
+        }
+
+        Log.i("Tag", tareaId.toString())
 
 
         binding.btnAceptar.setOnClickListener {

@@ -18,8 +18,8 @@ interface TareaService {
 
 
     @POST("tarea/get/{id}")
-    fun get(@Path("id") id: Long, @Body tarea: Tarea): Call<Tarea>
+    fun get(@Path("id") id: Long): Call<Tarea>
 
     @POST("tarea/remove/{id}")
-    fun remove(@Path("id") id: Long, @Body tarea: Tarea): Call<Void>
+    fun remove(@Path("id") id: Long): Call<Void>
 }

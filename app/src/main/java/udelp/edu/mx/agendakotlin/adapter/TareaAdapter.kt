@@ -1,12 +1,15 @@
 package udelp.edu.mx.agendakotlin.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import udelp.edu.mx.agendakotlin.R
+import udelp.edu.mx.agendakotlin.TareasFormFragment
 import udelp.edu.mx.agendakotlin.model.Tarea
 
 class TareaAdapter(private val tareas : List<Tarea>) : RecyclerView.Adapter<TareaAdapter.TareaHolder> (){
@@ -20,7 +23,19 @@ class TareaAdapter(private val tareas : List<Tarea>) : RecyclerView.Adapter<Tare
 
         init {
             view.setOnClickListener {
-                Toast.makeText(view.context,tareaActual.nombre,Toast.LENGTH_LONG).show()
+
+                val fragment = TareasFormFragment()
+                val bundle = Bundle()
+                tareaActual.id?.let { it1 ->
+                    bundle.putLong("Tarea_ID", it1)
+                }
+                fragment.arguments = bundle
+
+                val activity = view.context as? AppCompatActivity
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_container, fragment)
+                    ?.commit()
+
             }
         }
 

@@ -74,6 +74,8 @@ class TareasViewFragment : Fragment() {
         binding.btnAdd.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()!!
                 .replace(R.id.fragment_container, TareasFormFragment()).commit()
+
+            arguments?.putInt("Tareas_ID",0);
         }
     }
 

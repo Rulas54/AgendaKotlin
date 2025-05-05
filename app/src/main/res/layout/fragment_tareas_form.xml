@@ -19,7 +19,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:text="Nombre:"
                 android:ems="10"
                 android:id="@+id/txtNombre" android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
         <TextView
@@ -31,7 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:text="Prioridad:"
                 android:ems="10"
                 android:id="@+id/txtPrioridad" android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
         <TextView

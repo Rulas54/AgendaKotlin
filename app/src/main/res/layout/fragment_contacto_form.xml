@@ -5,24 +5,142 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         tools:context=".TareasFormFragment">
+
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+        <!-- Profile Picture Section -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
 
+            <ImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/notionportrait"
+                    android:contentDescription="Profile picture"
+                    android:scaleType="centerCrop"
+                    android:background="@android:color/darker_gray"/>
+
+            <Button
+                    android:id="@+id/btnSelectPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Photo"
+                    android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- Name Field -->
         <TextView
                 android:text="Nombre:"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:text="Name"
                 android:ems="10"
-                android:id="@+id/txtNombreContact" android:layout_weight="1"/>
+                android:id="@+id/txtNombreContact"
+                android:hint="Nombre"/>
+
+        <!-- Birth Date Field -->
+        <TextView
+                android:text="Fecha de Nacimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:ems="10"
+                android:id="@+id/txtFechaNacimientoContact"
+                android:hint="YYYY-MM-DD"/>
+
+        <!-- Email Field -->
+        <TextView
+                android:text="Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/txtCorreoContact"
+                android:hint="gmail.com, outlook.com"/>
+
+        <!-- Address Field -->
+        <TextView
+                android:text="Dirección"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
+                android:ems="10"
+                android:id="@+id/txtDireccionContact"
+                android:hint="Ingrese su dirección"/>
+
+        <!-- Phone Numbers Section -->
+        <TextView
+                android:text="Teléfonos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_marginTop="8dp"/>
+
+        <LinearLayout
+                android:id="@+id/phoneNumbersContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <!-- Initial phone number field -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <EditText
+                        android:id="@+id/etPhone1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="phone"
+                        android:hint="Número de teléfono"/>
+
+                <ImageButton
+                        android:id="@+id/btnAddPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_input_add"
+                        android:contentDescription="Add phone number"
+                        android:background="?attr/selectableItemBackgroundBorderless"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Submit Button -->
+        <Button
+                android:id="@+id/btnAgregarContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agregar Contacto"
+                android:layout_marginTop="24dp"
+                style="@style/Widget.AppCompat.Button.Colored"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

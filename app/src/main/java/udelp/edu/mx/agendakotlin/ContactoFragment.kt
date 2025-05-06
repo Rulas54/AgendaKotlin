@@ -89,6 +89,13 @@ class ContactoFragment : Fragment() {
                 Log.e("Error", "Error en el API: ${t.message}")
             }
         })
+
+        binding.btnAdd.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()!!
+                .replace(R.id.fragment_container, contacto_form()).commit()
+
+            arguments?.putInt("Tareas_ID",0);
+        }
     }
 
     override fun onDestroyView() {

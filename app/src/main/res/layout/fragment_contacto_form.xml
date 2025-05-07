@@ -145,8 +145,25 @@
                 android:id="@+id/btnAgregarContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Agregar Contacto"
+                android:text="Aceptar"
                 android:layout_marginTop="24dp"
-                style="@style/Widget.AppCompat.Button.Colored"/>
+                style="@style/Widget.AppCompat.Button.Colored" app:icon="@android:drawable/ic_input_add"/>
+
+        <Button
+                android:id="@+id/btnVerTodosContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver Contactos"
+                android:layout_marginTop="24dp"
+                style="@style/Widget.AppCompat.Button.Colored" app:icon="@drawable/nav_contacto"/>
+
+
+        <Button
+                android:id="@+id/btnVerTareas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver Tareas"
+                android:layout_marginTop="24dp"
+                style="@style/Widget.AppCompat.Button.Colored" app:icon="@drawable/baseline_article_24"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

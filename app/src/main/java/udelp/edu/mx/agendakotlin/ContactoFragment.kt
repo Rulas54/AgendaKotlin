@@ -33,6 +33,11 @@ class ContactoFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var _binding: FragmentContactoBinding? = null
+    private lateinit var adapter: ContactoAdapter
+    private lateinit var rv: RecyclerView
+    private var contactos: List<Contacto> = listOf()
+
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -67,34 +72,62 @@ class ContactoFragment : Fragment() {
 
          */
         val api = Clients.instance(view.context).create(ContactoService::class.java)
+        rv = view.findViewById(R.id.recycleContacto)
+
 
         api.getAll().enqueue(object : Callback<List<Contacto>> {
             override fun onResponse(call: Call<List<Contacto>>, response: Response<List<Contacto>>) {
-                Log.d("contacto",call.request().url().toString())
+                Log.d("contacto", call.request().url().toString())
+
                 if (response.isSuccessful) {
-                    var contactos : List<Contacto> = ArrayList()
+                    // Inicializa la lista de contactos de forma mutable
+                    val mutableContactos = response.body()?.toMutableList() ?: mutableListOf()
 
-                    response.body()?.let {t ->
-                        contactos = t
-                        val rv : RecyclerView = view.findViewById(R.id.recycleContacto)
-                        rv.layoutManager = LinearLayoutManager(view.context)
+                    // Configura el RecyclerView
+                    val rv: RecyclerView = view.findViewById(R.id.recycleContacto)
+                    rv.layoutManager = LinearLayoutManager(view.context)
 
-                        val adapter = ContactoAdapter(contactos)
-                        rv.adapter = adapter
+                    adapter = ContactoAdapter(mutableContactos) { contactoAEliminar ->
+                        // La lógica de eliminación sigue igual
+                        api.remove(contactoAEliminar.id!!, contactoAEliminar).enqueue(object : Callback<Void> {
+                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                if (response.isSuccessful) {
+                                    mutableContactos.remove(contactoAEliminar)
+                                    adapter.notifyDataSetChanged()
+                                    Log.d("Contacto", "Eliminado correctamente")
+                                } else {
+                                    Log.e("Error", "Error al eliminar contacto")
+                                }
+                            }
+
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                Log.e("Error", "Fallo de red al eliminar: ${t.message}")
+                            }
+                        })
                     }
+                    rv.layoutManager = LinearLayoutManager(view.context)
+                    rv.adapter = adapter
+
+                    // Asigna el adapter al RecyclerView
+                    rv.adapter = adapter
+                } else {
+                    Log.e("Error", "Error al obtener los contactos")
                 }
             }
 
             override fun onFailure(call: Call<List<Contacto>>, t: Throwable) {
-                Log.e("Error", "Error en el API: ${t.message}")
+                Log.e("Error", "Fallo de red al obtener los contactos: ${t.message}")
             }
         })
+
+
+
 
         binding.btnAdd.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()!!
                 .replace(R.id.fragment_container, contacto_form()).commit()
 
-            arguments?.putInt("Tareas_ID",0);
+            arguments?.putInt("Contacto_ID",0);
         }
     }
 

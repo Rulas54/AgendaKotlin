@@ -17,7 +17,7 @@ interface ContactoService {
     fun edit(@Path("id") id: Long, @Body contacto: Contacto): Call<Void>
 
     @POST("contacto/get/{id}")
-    fun get(@Path("id") id: Long): Call<List<Contacto>>
+    fun get(@Path("id") id: Long): Call<Contacto>
 
     @POST("contacto/remove/{id}")
     fun remove(@Path("id") id: Long, @Body contacto: Contacto): Call<Void>

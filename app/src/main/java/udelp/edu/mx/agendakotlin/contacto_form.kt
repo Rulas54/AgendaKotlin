@@ -44,8 +44,20 @@ class contacto_form : Fragment() {
     private lateinit var btnAddMail: ImageButton
 
 
+    private var contactoId: Long? = null
     private var _binding: FragmentContactoFormBinding? = null
     private val binding get() = _binding!!
+
+
+    private var contactoExistente: Contacto? = null
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            contactoId = it.getLong("Contacto_ID")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -180,8 +192,91 @@ class contacto_form : Fragment() {
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
+            if (contactoId != null && contactoId != 0L) {
+                binding.btnAgregarContact.text = "Actualizar Contacto"
+            } else {
+                binding.btnAgregarContact.text = "Agregar Contacto"
+            }
+
+
             val emailsContainer = binding.emailsContainer
             val api = Clients.instance(view.context).create(ContactoService::class.java)
+
+            //----------------------- Remplazar datos para editar -------------------------
+            if (contactoId != null && contactoId != 0L) {
+                val api = Clients.instance(requireContext()).create(ContactoService::class.java)
+                api.get(contactoId!!).enqueue(object : Callback<Contacto> {
+                    override fun onResponse(call: Call<Contacto>, response: Response<Contacto>) {
+                        if (response.isSuccessful) {
+                            val contacto = response.body()  // Ahora directamente es un solo objeto Contacto
+                            if (contacto != null) {
+                                // Establece los valores del contacto en los campos correspondientes
+                                binding.txtNombreContact.setText(contacto.nombre)
+                                binding.txtDireccionContact.setText(contacto.direccion)
+
+                                // Teléfono principal
+                                if (!contacto.numeroTelfono.isNullOrEmpty()) {
+                                    // Verifica si ya se ha agregado un campo para teléfono
+                                    if (binding.phoneNumbersContainer.childCount == 0) {
+                                        addPhoneField()
+                                    }
+                                    val layout = binding.phoneNumbersContainer.getChildAt(0) as LinearLayout
+                                    val editText = layout.getChildAt(0) as EditText
+                                    editText.setText(contacto.numeroTelfono)
+                                }
+
+                                // Teléfonos adicionales
+                                contacto.numeroAdicional?.forEach { numero ->
+                                    // Agrega solo si hay espacio en el contenedor para un nuevo teléfono
+                                    addPhoneField()
+                                    val index = binding.phoneNumbersContainer.childCount - 1
+                                    val layout = binding.phoneNumbersContainer.getChildAt(index) as LinearLayout
+                                    val editText = layout.getChildAt(0) as EditText
+                                    editText.setText(numero)
+                                }
+
+                                // Correo principal
+                                if (!contacto.email.isNullOrEmpty()) {
+                                    // Verifica si ya se ha agregado un campo para correo
+                                    if (binding.emailsContainer.childCount == 0) {
+                                        addEmailField()
+                                    }
+                                    val layout = binding.emailsContainer.getChildAt(0) as LinearLayout
+                                    val editText = layout.getChildAt(0) as EditText
+                                    editText.setText(contacto.email)
+                                }
+
+                                // Correos adicionales
+                                contacto.correoAdicional?.forEach { correo ->
+                                    // Agrega solo si hay espacio en el contenedor para un nuevo correo
+                                    addEmailField()
+                                    val index = binding.emailsContainer.childCount - 1
+                                    val layout = binding.emailsContainer.getChildAt(index) as LinearLayout
+                                    val editText = layout.getChildAt(0) as EditText
+                                    editText.setText(correo)
+                                }
+                            } else {
+                                Log.e("API", "El contacto es nulo.")
+                            }
+                        } else {
+                            Log.e("API", "Error en la respuesta: ${response.errorBody()?.string()}")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Contacto>, t: Throwable) {
+                        Log.e("Error", "Error al obtener el contacto: ${t.message}", t)
+                    }
+                })
+            }
+
+
+
+
+
+
+
+
+            //-------------------------------------------------------------------------------
 
             binding.btnAgregarContact.setOnClickListener {
                 val nombre = binding.txtNombreContact.text.toString().trim()
@@ -223,23 +318,60 @@ class contacto_form : Fragment() {
                 val correosAdicionales = if (correos.size > 1) correos.subList(1, correos.size) else emptyList()
 
                 // ---------------- CREA OBJETO Contacto ----------------
-                val contacto = Contacto(null, nombre,correoPrincipal, numeroPrincipal, numerosAdicionales, correosAdicionales, direccion)
+                val contacto = if (contactoId != null && contactoId != 0L) {
+                    // Si hay un ID, es una edición
+                    Contacto(contactoId, nombre, correoPrincipal, numeroPrincipal, numerosAdicionales, correosAdicionales, direccion)
+                } else {
+                    // Si no hay ID, es un nuevo contacto
+                    Contacto(null, nombre, correoPrincipal, numeroPrincipal, numerosAdicionales, correosAdicionales, direccion)
+                }
+
                 // ---------------- LLAMADA A API ----------------
                 val api = Clients.instance(requireContext()).create(ContactoService::class.java)
-                api.add(contacto).enqueue(object : Callback<Contacto> {
-                    override fun onResponse(call: Call<Contacto>, response: Response<Contacto>) {
-                        if (response.isSuccessful) {
-                            Toast.makeText(context, "Contacto agregado", Toast.LENGTH_SHORT).show()
-                            Log.d("Contacto", response.body().toString())
-                        } else {
-                            Log.e("API", "Error en la respuesta: ${response.errorBody()?.string()}")
-                        }
-                    }
 
-                    override fun onFailure(call: Call<Contacto>, t: Throwable) {
-                        Log.e("Error", "Error en la API: ${t.message}", t)
-                    }
-                })
+                if (contactoId != null && contactoId != 0L) {
+                    // Actualizar contacto existente
+                    api.edit(contactoId!!, contacto).enqueue(object : Callback<Void> {
+                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(context, "Contacto actualizado", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Log.e("API", "Error en la respuesta: ${response.errorBody()?.string()}")
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            Log.e("Error", "Error en la API: ${t.message}", t)
+                        }
+                    })
+                } else {
+                    // Agregar nuevo contacto
+                    api.add(contacto).enqueue(object : Callback<Contacto> {
+                        override fun onResponse(call: Call<Contacto>, response: Response<Contacto>) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(context, "Contacto agregado", Toast.LENGTH_SHORT).show()
+                                Log.d("Contacto", response.body().toString())
+                            } else {
+                                Log.e("API", "Error en la respuesta: ${response.errorBody()?.string()}")
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Contacto>, t: Throwable) {
+                            Log.e("Error", "Error en la API: ${t.message}", t)
+                        }
+                    })
+                }
+            }
+
+
+            binding.btnVerTareas.setOnClickListener {
+                activity?.supportFragmentManager?.beginTransaction()!!
+                    .replace(R.id.fragment_container, TareasViewFragment()).commit()
+            }
+
+            binding.btnVerTodosContact.setOnClickListener {
+                activity?.supportFragmentManager?.beginTransaction()!!
+                    .replace(R.id.fragment_container, ContactoFragment()).commit()
             }
 
         }

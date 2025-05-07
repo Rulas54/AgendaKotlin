@@ -11,41 +11,42 @@ import udelp.edu.mx.agendakotlin.R
 import udelp.edu.mx.agendakotlin.model.Contacto
 
 class ContactoAdapter(private val  contactos : List<Contacto>) : RecyclerView.Adapter<ContactoAdapter.ContactoHolder>() {
-    class ContactoHolder(val view : View) : RecyclerView.ViewHolder(view){
-        private val lblNombre2 : TextView = view.findViewById(R.id.lblNombre2)
-        private val lblCorreo : TextView = view.findViewById(R.id.lblCorreo)
-        private val lblFecha : TextView = view.findViewById(R.id.lblFecha)
-        private val lblDireccion : TextView = view.findViewById(R.id.lblDireccion)
-        private val lblTelefono : TextView = view.findViewById(R.id.lblTelefono)
-        //private val imageFoto : ImageView = view.findViewById(R.id.imageFoto)
-        private var contactoActual : Contacto = Contacto(0,"","","","","","")
+    class ContactoHolder(val view: View) : RecyclerView.ViewHolder(view) {
+
+        private val lblNombre2: TextView = view.findViewById(R.id.lblNombre2)
+        private val lblCorreo: TextView = view.findViewById(R.id.lblCorreo)
+        private val lblDireccion: TextView = view.findViewById(R.id.lblDireccion)
+        private val lblTelefono: TextView = view.findViewById(R.id.lblTelefono)
+        private var contactoActual: Contacto = Contacto(0, "", "", "", emptyList(), emptyList(), "")
 
         init {
             view.setOnClickListener {
-                Toast.makeText(view.context,contactoActual.nombre,Toast.LENGTH_LONG).show()
+                Toast.makeText(view.context, contactoActual.nombre, Toast.LENGTH_LONG).show()
             }
         }
 
-        fun render(contacto : Contacto) {
-             contactoActual = contacto
-            lblNombre2.apply {
-                text = contacto.nombre
+        fun render(contacto: Contacto) {
+            contactoActual = contacto
+
+            lblNombre2.text = contacto.nombre
+            lblCorreo.text = buildString {
+                append(contacto.email)
+                if (!contacto.correoAdicional.isNullOrEmpty()) {
+                    append("\nExtra: ${contacto.correoAdicional.joinToString()}")
+                }
             }
-            lblCorreo.apply {
-                text = contacto.email
-            }
-            lblFecha.apply {
-                text = contacto.fechaNacimiento
-            }
-            lblDireccion.apply {
-                text = contacto.direccion
-            }
-            lblTelefono.apply {
-                text = contacto.numeroTelfono
+
+            lblDireccion.text = contacto.direccion
+
+            lblTelefono.text = buildString {
+                append(contacto.numeroTelfono)
+                if (!contacto.numeroAdicional.isNullOrEmpty()) {
+                    append("\nExtra: ${contacto.numeroAdicional.joinToString()}")
+                }
             }
         }
-
     }
+
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ContactoHolder {
         val layoutInflater = LayoutInflater.from(p0.context)

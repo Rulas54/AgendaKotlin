@@ -43,6 +43,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navigationView.setCheckedItem(R.id.nav_home)
         }
 
+
+
+        
+
     }
 
 

@@ -29,13 +29,6 @@
                     android:contentDescription="Profile picture"
                     android:scaleType="centerCrop"
                     android:background="@android:color/darker_gray"/>
-
-            <Button
-                    android:id="@+id/btnSelectPhoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select Photo"
-                    android:layout_marginTop="8dp"/>
         </LinearLayout>
 
         <!-- Name Field -->
@@ -53,34 +46,44 @@
                 android:hint="Nombre"/>
 
         <!-- Birth Date Field -->
-        <TextView
-                android:text="Fecha de Nacimiento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/txtFechaNacimientoContact"
-                android:hint="YYYY-MM-DD"/>
 
         <!-- Email Field -->
         <TextView
-                android:text="Email"
+                android:text="Correos Electronicos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView7"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-        <EditText
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_marginTop="8dp"/>
+
+        <LinearLayout
+                android:id="@+id/emailsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:ems="10"
-                android:id="@+id/txtCorreoContact"
-                android:hint="gmail.com, outlook.com"/>
+                android:orientation="vertical">
+
+            <!-- Initial phone number field -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <EditText
+                        android:id="@+id/etMail1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="text"
+                        android:hint="Correo Electronico"/>
+
+                <ImageButton
+                        android:id="@+id/btnAddMail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_input_add"
+                        android:contentDescription="Add email"
+                        android:background="?attr/selectableItemBackgroundBorderless"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <!-- Address Field -->
         <TextView
@@ -133,6 +136,9 @@
                         android:background="?attr/selectableItemBackgroundBorderless"/>
             </LinearLayout>
         </LinearLayout>
+
+
+
 
         <!-- Submit Button -->
         <Button

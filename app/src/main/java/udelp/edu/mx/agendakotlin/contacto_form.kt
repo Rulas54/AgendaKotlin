@@ -40,6 +40,9 @@ import java.util.Locale
 class contacto_form : Fragment() {
     private lateinit var phoneNumbersContainer: LinearLayout
     private lateinit var btnAddPhone: ImageButton
+    private lateinit var emailsContainer: LinearLayout
+    private lateinit var btnAddMail: ImageButton
+
 
     private var _binding: FragmentContactoFormBinding? = null
     private val binding get() = _binding!!
@@ -54,13 +57,23 @@ class contacto_form : Fragment() {
         phoneNumbersContainer = binding.phoneNumbersContainer
         btnAddPhone = binding.btnAddPhone
 
+        // Inicializamos el contenedor de correos y el botón de agregar correo
+        emailsContainer = binding.emailsContainer // Esto debe ser el contenedor de correos en tu XML
+        btnAddMail = binding.btnAddMail // Esto debe ser el botón de agregar correo en tu XML
+
         // Establecemos el listener para el botón "Agregar Teléfono"
         btnAddPhone.setOnClickListener {
             addPhoneField()
         }
 
+        // Establecemos el listener para el botón "Agregar Correo"
+        btnAddMail.setOnClickListener {
+            addEmailField() // Método para agregar un campo de correo electrónico
+        }
+
         return binding.root
     }
+
 
 
     private fun addPhoneField() {
@@ -110,59 +123,129 @@ class contacto_form : Fragment() {
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun addEmailField() {
+        val emailsContainer = view?.findViewById<LinearLayout>(R.id.emailsContainer) ?: return
+
+        // Creamos un LinearLayout horizontal para contener el campo y el botón
+        val emailLayout = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
+
+        // EditText para el nuevo correo
+        val editText = EditText(requireContext()).apply {
+            hint = "Correo electrónico"
+            layoutParams = LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1f
+            ).apply {
+                setMargins(0, 8, 8, 8)
+            }
+            inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+        }
+
+        // Botón para eliminar el campo
+        val btnRemoveEmail = ImageButton(requireContext()).apply {
+            setImageResource(android.R.drawable.ic_delete)
+            contentDescription = "Eliminar correo"
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                setMargins(8, 8, 0, 8)
+            }
+            setBackgroundResource(android.R.color.transparent)
+            setOnClickListener {
+                emailsContainer.removeView(emailLayout)
+            }
+        }
+
+        // Agrega el EditText y el botón al layout
+        emailLayout.addView(editText)
+        emailLayout.addView(btnRemoveEmail)
+
+        // Agrega el layout al contenedor de correos
+        emailsContainer.addView(emailLayout)
+    }
 
 
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
-        var contacto : Contacto = Contacto(null,"Rulas","2001-10-04","rulas@gmail.com","3318715804","fotos/rulas.jpg","Animas 16")
-        val api = Clients.instance(view.context).create(TareaService::class.java)
 
 
 
-        binding.btnAgregarContact.setOnClickListener {
-            val nombre : TextView = view.findViewById<TextView>(R.id.txtNombreContact)
-            val nacimiento : TextView = view.findViewById<TextView>(R.id.txtFechaNacimientoContact)
-            val correo : TextView = view.findViewById<TextView>(R.id.txtCorreoContact)
-            val direccion : TextView = view.findViewById<TextView>(R.id.txtDireccionContact)
-            //-----Telefono-----------------
-            val telefonos = mutableListOf<String>()
-            for (i in 0 until phoneNumbersContainer.childCount) {
-                val layout = phoneNumbersContainer.getChildAt(i) as LinearLayout
-                for (j in 0 until layout.childCount) {
-                    val viewInside = layout.getChildAt(j)
-                    if (viewInside is EditText) {
-                        val telefono = viewInside.text.toString().trim()
-                        if (telefono.isNotEmpty()) {
-                            telefonos.add(telefono)
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+
+            val emailsContainer = binding.emailsContainer
+            val api = Clients.instance(view.context).create(ContactoService::class.java)
+
+            binding.btnAgregarContact.setOnClickListener {
+                val nombre = binding.txtNombreContact.text.toString().trim()
+                val direccion = binding.txtDireccionContact.text.toString().trim()
+
+                // ---------------- Captura TELÉFONOS ----------------
+                val telefonos = mutableListOf<String>()
+                for (i in 0 until binding.phoneNumbersContainer.childCount) {
+                    val layout = binding.phoneNumbersContainer.getChildAt(i) as LinearLayout
+                    for (j in 0 until layout.childCount) {
+                        val viewInside = layout.getChildAt(j)
+                        if (viewInside is EditText) {
+                            val telefono = viewInside.text.toString().trim()
+                            if (telefono.isNotEmpty()) {
+                                telefonos.add(telefono)
+                            }
                         }
                     }
                 }
-            }
+                val numeroPrincipal = if (telefonos.isNotEmpty()) telefonos[0] else ""
+                val numerosAdicionales = if (telefonos.size > 1) telefonos.subList(1, telefonos.size) else emptyList()
 
-            //------------------------------------------------------------------------------------
-            val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
-            var contacto : Contacto = Contacto(null,nombre.text.toString(),nacimiento.text.toString(),correo.text.toString(),telefonos.joinToString(",")
-                ,"https://example.com/default-profile.jpg",direccion.text.toString())
-            val api = Clients.instance(view.context).create(ContactoService::class.java)
-
-            api.add(contacto).enqueue(object : Callback<Contacto> {
-                override fun onResponse(call: Call<Contacto>, response: Response<Contacto>) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(context,"Contacto agregada",Toast.LENGTH_SHORT).show()
-                        Log.d("Tarea", response.body().toString())
+                // ---------------- Captura EMAILS ----------------
+                val emailsContainer = binding.emailsContainer
+                val correos = mutableListOf<String>()
+                for (i in 0 until emailsContainer.childCount) {
+                    val layout = emailsContainer.getChildAt(i) as LinearLayout
+                    for (j in 0 until layout.childCount) {
+                        val viewInside = layout.getChildAt(j)
+                        if (viewInside is EditText) {
+                            val email = viewInside.text.toString().trim()
+                            if (email.isNotEmpty()) {
+                                correos.add(email)
+                            }
+                        }
                     }
                 }
+                val correoPrincipal = if (correos.isNotEmpty()) correos[0] else ""
+                val correosAdicionales = if (correos.size > 1) correos.subList(1, correos.size) else emptyList()
 
-                override fun onFailure(call: Call<Contacto?>, t: Throwable) {
-                    Log.e("Error", "Error en la API: ${t.message}", t)
-                }
-            })
+                // ---------------- CREA OBJETO Contacto ----------------
+                val contacto = Contacto(null, nombre,correoPrincipal, numeroPrincipal, numerosAdicionales, correosAdicionales, direccion)
+                // ---------------- LLAMADA A API ----------------
+                val api = Clients.instance(requireContext()).create(ContactoService::class.java)
+                api.add(contacto).enqueue(object : Callback<Contacto> {
+                    override fun onResponse(call: Call<Contacto>, response: Response<Contacto>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(context, "Contacto agregado", Toast.LENGTH_SHORT).show()
+                            Log.d("Contacto", response.body().toString())
+                        } else {
+                            Log.e("API", "Error en la respuesta: ${response.errorBody()?.string()}")
+                        }
+                    }
 
+                    override fun onFailure(call: Call<Contacto>, t: Throwable) {
+                        Log.e("Error", "Error en la API: ${t.message}", t)
+                    }
+                })
+            }
 
         }
+
+
 
     }
 
 
-}

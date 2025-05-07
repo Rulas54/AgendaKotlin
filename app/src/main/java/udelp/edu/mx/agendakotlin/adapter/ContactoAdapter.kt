@@ -75,7 +75,7 @@ class ContactoAdapter(private val  contactos : List<Contacto>, private val onEli
             lblTelefono.text = buildString {
                 append(contacto.numeroTelfono)
                 if (!contacto.numeroAdicional.isNullOrEmpty()) {
-                    append("\nExtra: ${contacto.numeroAdicional.joinToString()}")
+                    append("\nExtra: ${contacto.numeroAdicional.joinToString("\nExtra: ")}")
                 }
             }
         }

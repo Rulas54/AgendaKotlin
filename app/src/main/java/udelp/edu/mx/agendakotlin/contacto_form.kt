@@ -12,6 +12,8 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -334,7 +336,14 @@ class contacto_form : Fragment() {
                     api.edit(contactoId!!, contacto).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             if (response.isSuccessful) {
-                                Toast.makeText(context, "Contacto actualizado", Toast.LENGTH_SHORT).show()
+                                Snackbar.make(
+                                    requireView(),
+                                    "Registro Actualizado",
+                                    BaseTransientBottomBar.LENGTH_SHORT
+                                    ).show()
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container, ContactoFragment())
+                                    .commit()
                             } else {
                                 Log.e("API", "Error en la respuesta: ${response.errorBody()?.string()}")
                             }
@@ -349,8 +358,14 @@ class contacto_form : Fragment() {
                     api.add(contacto).enqueue(object : Callback<Contacto> {
                         override fun onResponse(call: Call<Contacto>, response: Response<Contacto>) {
                             if (response.isSuccessful) {
-                                Toast.makeText(context, "Contacto agregado", Toast.LENGTH_SHORT).show()
-                                Log.d("Contacto", response.body().toString())
+                                Snackbar.make(
+                                    requireView(),
+                                    "Registro Registrado",
+                                    BaseTransientBottomBar.LENGTH_SHORT
+                                ).show()
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container, ContactoFragment())
+                                    .commit()
                             } else {
                                 Log.e("API", "Error en la respuesta: ${response.errorBody()?.string()}")
                             }

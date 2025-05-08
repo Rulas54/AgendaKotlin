@@ -22,7 +22,6 @@ class ContactoAdapter(private val  contactos : List<Contacto>, private val onEli
 
         private val lblNombre2: TextView = view.findViewById(R.id.lblNombre2)
         private val lblCorreo: TextView = view.findViewById(R.id.lblCorreo)
-        private val lblDireccion: TextView = view.findViewById(R.id.lblDireccion)
         private val lblTelefono: TextView = view.findViewById(R.id.lblTelefono)
         private var contactoActual: Contacto = Contacto(0, "", "", "", emptyList(), emptyList(), "")
 
@@ -65,18 +64,11 @@ class ContactoAdapter(private val  contactos : List<Contacto>, private val onEli
             lblNombre2.text = contacto.nombre
             lblCorreo.text = buildString {
                 append(contacto.email)
-                if (!contacto.correoAdicional.isNullOrEmpty()) {
-                    append("\nExtra: ${contacto.correoAdicional.joinToString()}")
-                }
             }
 
-            lblDireccion.text = contacto.direccion
 
             lblTelefono.text = buildString {
                 append(contacto.numeroTelfono)
-                if (!contacto.numeroAdicional.isNullOrEmpty()) {
-                    append("\nExtra: ${contacto.numeroAdicional.joinToString("\nExtra: ")}")
-                }
             }
         }
     }

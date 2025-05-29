@@ -44,6 +44,54 @@
                 android:gravity="start|top"
                 android:ems="10"
                 android:id="@+id/txtDescripcion" android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <!-- Fecha de Vencimiento (Usamos botón para abrir DatePickerDialog) -->
+        <TextView
+                android:layout_marginTop="16dp"
+                android:text="Fecha de vencimiento:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        <Button
+                android:id="@+id/btnFechaVencimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar fecha" />
+
+        <TextView
+                android:id="@+id/tvFechaSeleccionada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="italic"
+                android:gravity="center_horizontal" />
+
+        <!-- Estado -->
+        <TextView
+                android:layout_marginTop="16dp"
+                android:text="Estado:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        <Spinner
+                android:id="@+id/spEstado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        />
+
+        <!-- Etiqueta -->
+        <TextView
+                android:layout_marginTop="16dp"
+                android:text="Etiqueta:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        <Spinner
+                android:id="@+id/spEtiqueta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
         <Button
                 android:text="Aceptar"
                 android:layout_width="match_parent"

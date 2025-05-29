@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +20,11 @@ class TareaAdapter(private val tareas : List<Tarea>) : RecyclerView.Adapter<Tare
         private val lblNombre : TextView = view.findViewById(R.id.lblNombre)
         private val lblPrioridad : TextView = view.findViewById(R.id.lblPrioridad)
         private val lblDescripcion : TextView = view.findViewById(R.id.lblDescripcion)
-        private var tareaActual: Tarea = Tarea(0,"","","",0)
+        private val tvFechaSeleccionada: TextView = view.findViewById(R.id.tvFechaSeleccionada)
+        private val spEstado: Spinner = view.findViewById(R.id.spEstado)
+        private val spEtiqueta: Spinner = view.findViewById(R.id.spEtiqueta)
+        private var tareaActual: Tarea = Tarea(0, "", "", "", "", "", "", 0)
+
 
 
         init {
@@ -39,8 +45,9 @@ class TareaAdapter(private val tareas : List<Tarea>) : RecyclerView.Adapter<Tare
             }
         }
 
-        fun render(tarea: Tarea){
+        fun render(tarea: Tarea) {
             tareaActual = tarea
+
             lblNombre.apply {
                 text = tarea.nombre
             }
@@ -50,7 +57,32 @@ class TareaAdapter(private val tareas : List<Tarea>) : RecyclerView.Adapter<Tare
             lblPrioridad.apply {
                 text = tarea.prioridad.toString()
             }
+            tvFechaSeleccionada.apply {
+                text = tarea.fechaVencimiento
+            }
+            spEstado.apply {
+                val estados = listOf("Por hacer", "En proceso", "Hecho")
+                val adapterEstado = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, estados)
+                adapterEstado.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                adapter = adapterEstado
+                val posicion = adapterEstado.getPosition(tarea.estado)
+                if (posicion >= 0) setSelection(posicion)
+                isEnabled = false
+                isClickable = false
+            }
+            spEtiqueta.apply {
+                val etiquetas = listOf("Personal", "Trabajo", "Urgente")
+                val adapterEtiqueta = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, etiquetas)
+                adapterEtiqueta.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                adapter = adapterEtiqueta
+                val posicion = adapterEtiqueta.getPosition(tarea.etiqueta)
+                if (posicion >= 0) setSelection(posicion)
+                isEnabled = false
+                isClickable = false
+            }
         }
+
+
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): TareaHolder {

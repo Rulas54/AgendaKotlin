@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,6 +56,12 @@ class TareasFormFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (tareaId != null && tareaId != 0L) {
+            binding.btnAceptar.text = "Actualizar Tarea"
+        } else {
+            binding.btnAceptar.text = "Agregar Tarea"
+        }
 
 
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
@@ -108,8 +116,14 @@ class TareasFormFragment : Fragment() {
             api.add(tarea).enqueue(object : Callback<Tarea> {
                 override fun onResponse(call: Call<Tarea>, response: Response<Tarea>) {
                     if(response.isSuccessful) {
-                        Toast.makeText(context,"Tarea agregada",Toast.LENGTH_SHORT).show()
-                        Log.d("Tarea", response.body().toString())
+                        Snackbar.make(
+                            requireView(),
+                            "Tarea Agregada",
+                            BaseTransientBottomBar.LENGTH_SHORT
+                        ).show()
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, TareasViewFragment())
+                            .commit()
 
                     }
                 }

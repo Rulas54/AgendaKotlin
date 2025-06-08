@@ -124,13 +124,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp" />
 
-    <!-- Divider -->
-    <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintTop_toBottomOf="@+id/spEtiqueta"
-            android:layout_marginTop="12dp" />
+    <Button
+            android:id="@+id/btnHecho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hecho"
+            android:layout_marginTop="11dp"
+            app:layout_constraintTop_toBottomOf="@+id/spEtiqueta" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="126dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

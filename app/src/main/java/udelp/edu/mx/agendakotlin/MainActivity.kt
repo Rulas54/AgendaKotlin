@@ -64,6 +64,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .replace(R.id.fragment_container, TareasViewFragment()).commit()}
             R.id.nav_contacto -> {supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ContactoFragment()).commit()}
+            R.id.nav_eventos -> {supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, EventoFragment()).commit()}
         }
         navDrawer.closeDrawer(GravityCompat.START)
 

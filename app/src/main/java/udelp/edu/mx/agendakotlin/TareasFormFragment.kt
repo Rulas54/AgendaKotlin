@@ -1,38 +1,25 @@
 package udelp.edu.mx.agendakotlin
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import android.widget.*
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import udelp.edu.mx.agendakotlin.model.Tarea
 import udelp.edu.mx.agendakotlin.client.Clients
 import udelp.edu.mx.agendakotlin.databinding.FragmentTareasFormBinding
+import udelp.edu.mx.agendakotlin.model.Tarea
 import udelp.edu.mx.agendakotlin.service.TareaService
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import android.app.DatePickerDialog
-import android.widget.ArrayAdapter
-import java.util.Calendar
+import java.util.*
 
-import kotlin.math.log
-
-
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class TareasFormFragment : Fragment() {
 
     private var tareaId: Long? = null
@@ -41,20 +28,14 @@ class TareasFormFragment : Fragment() {
     private lateinit var tvFechaSeleccionada: TextView
     private lateinit var spEstado: Spinner
     private lateinit var spEtiqueta: Spinner
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             tareaId = it.getLong("Tarea_ID")
         }
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,27 +43,16 @@ class TareasFormFragment : Fragment() {
     ): View {
         _binding = FragmentTareasFormBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Cambio en el botón según la acción que se haga
-        if (tareaId != null && tareaId != 0L) {
-            binding.btnAceptar.text = "Actualizar Tarea"
-        } else {
-            binding.btnAceptar.text = "Agregar Tarea"
-        }
-
-
-        // Inicialización de Spinners y Fecha
         btnFechaVencimiento = view.findViewById(R.id.btnFechaVencimiento)
         tvFechaSeleccionada = view.findViewById(R.id.tvFechaSeleccionada)
         spEstado = view.findViewById(R.id.spEstado)
         spEtiqueta = view.findViewById(R.id.spEtiqueta)
 
-            // Spinner de Estado y etiqueta
         val estados = listOf("Por hacer", "En proceso", "Hecho")
         val etiquetas = listOf("Escuela", "Trabajo", "Personal", "Urgente", "Otro")
 
@@ -94,8 +64,6 @@ class TareasFormFragment : Fragment() {
         adapterEtiqueta.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spEtiqueta.adapter = adapterEtiqueta
 
-
-        // Calendario para Fecha de Vencimiento
         btnFechaVencimiento.setOnClickListener {
             val calendario = Calendar.getInstance()
             val year = calendario.get(Calendar.YEAR)
@@ -108,106 +76,118 @@ class TareasFormFragment : Fragment() {
             }, year, month, day).show()
         }
 
+        // Si es edición, cargar datos
+        if (tareaId != null && tareaId != 0L) {
+            binding.btnAceptar.text = "Actualizar Tarea"
 
-
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
-        var tarea : Tarea = Tarea(null, date, "Luis", "Algo", "2025-06-01", "Por hacer", "Escuela", 1)
-        val api = Clients.instance(view.context).create(TareaService::class.java)
-        Log.e(tareaId.toString(),tareaId.toString())
-
-
-        if (null != tareaId && tareaId != 0L){
             val api = Clients.instance(view.context).create(TareaService::class.java)
             api.get(tareaId!!).enqueue(object : Callback<Tarea> {
-                override fun onResponse(p0: Call<Tarea>, response: Response<Tarea>) {
-                    if (response.isSuccessful){
+                override fun onResponse(call: Call<Tarea>, response: Response<Tarea>) {
+                    if (response.isSuccessful) {
                         val tarea = response.body()
 
-                        val lblNombre: TextView = view.findViewById<TextView>(R.id.txtNombre)
-                        lblNombre.apply {
-                            text = tarea?.nombre
-                        }
-
-                        val lblPrioridad: TextView = view.findViewById<TextView>(R.id.txtPrioridad)
-                        lblPrioridad.apply {
-                            text = tarea?.prioridad.toString()
-                        }
-
-                        val lblDescripción: TextView = view.findViewById<TextView>(R.id.txtDescripcion)
-                        lblDescripción.apply {
-                            text = tarea?.descripcion
-                        }
+                        view.findViewById<EditText>(R.id.txtNombre).setText(tarea?.nombre)
+                        view.findViewById<EditText>(R.id.txtPrioridad).setText(tarea?.prioridad.toString())
+                        view.findViewById<EditText>(R.id.txtDescripcion).setText(tarea?.descripcion)
+                        tvFechaSeleccionada.text = tarea?.fechaVencimiento
 
                         tarea?.let {
-                            val estadoPosition = adapterEstado.getPosition(it.estado)
-                            spEstado.setSelection(estadoPosition)
+                            val estadoPos = adapterEstado.getPosition(it.estado)
+                            spEstado.setSelection(estadoPos)
 
-                            val etiquetaPosition = adapterEtiqueta.getPosition(it.etiqueta)
-                            spEtiqueta.setSelection(etiquetaPosition)
-
-                            tvFechaSeleccionada.text = it.fechaVencimiento
+                            val etiquetaPos = adapterEtiqueta.getPosition(it.etiqueta)
+                            spEtiqueta.setSelection(etiquetaPos)
                         }
                     }
-
                 }
 
-                override fun onFailure(p0: Call<Tarea>, p1: Throwable) {
-
+                override fun onFailure(call: Call<Tarea>, t: Throwable) {
+                    Log.e("API", "Error al cargar tarea: ${t.message}", t)
                 }
             })
+        } else {
+            binding.btnAceptar.text = "Agregar Tarea"
         }
 
-        Log.i("Tag", tareaId.toString())
-
-
+        // Botón Aceptar
         binding.btnAceptar.setOnClickListener {
-            val nombre : TextView = view.findViewById<TextView>(R.id.txtNombre)
-            val prioridad : TextView = view.findViewById<TextView>(R.id.txtPrioridad)
-            val descripcion : TextView = view.findViewById<TextView>(R.id.txtDescripcion)
+            val nombre = view.findViewById<EditText>(R.id.txtNombre).text.toString()
+            val prioridad = view.findViewById<EditText>(R.id.txtPrioridad).text.toString().toIntOrNull() ?: 1
+            val descripcion = view.findViewById<EditText>(R.id.txtDescripcion).text.toString()
             val estadoSeleccionado = spEstado.selectedItem.toString()
             val etiquetaSeleccionada = spEtiqueta.selectedItem.toString()
             val fechaVencimiento = tvFechaSeleccionada.text.toString()
-
-
-            //------------------------------------------------------------------------------------
-            val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
-            var tarea : Tarea = Tarea(null, date, nombre.text.toString(), descripcion.text.toString(), tvFechaSeleccionada.text.toString(), spEstado.selectedItem.toString(), spEtiqueta.selectedItem.toString(), prioridad.text.toString().toInt())
+            val fechaCreacion = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
             val api = Clients.instance(view.context).create(TareaService::class.java)
 
-            api.add(tarea).enqueue(object : Callback<Tarea> {
-                override fun onResponse(call: Call<Tarea>, response: Response<Tarea>) {
-                    if(response.isSuccessful) {
-                        Snackbar.make(
-                            requireView(),
-                            "Tarea Agregada",
-                            BaseTransientBottomBar.LENGTH_SHORT
-                        ).show()
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, TareasViewFragment())
-                            .commit()
+            if (tareaId != null && tareaId != 0L) {
+                // Actualizar tarea
+                val tareaActualizar = Tarea(
+                    id = tareaId,
+                    fechaCreacion = fechaCreacion,
+                    nombre = nombre,
+                    descripcion = descripcion,
+                    fechaVencimiento = fechaVencimiento,
+                    estado = estadoSeleccionado,
+                    etiqueta = etiquetaSeleccionada,
+                    prioridad = prioridad
+                )
 
+                api.edit(tareaId!!, tareaActualizar).enqueue(object : Callback<Tarea> {
+                    override fun onResponse(call: Call<Tarea>, response: Response<Tarea>) {
+                        if (response.isSuccessful) {
+                            Snackbar.make(requireView(), "Tarea Actualizada", Snackbar.LENGTH_SHORT).show()
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, TareasViewFragment())
+                                .commit()
+                        }
                     }
-                }
-                override fun onFailure(call: Call<Tarea>, t: Throwable) {
-                    Log.e("Error", "Error en la API: ${t.message}", t)
-                }
-            })
 
+                    override fun onFailure(call: Call<Tarea>, t: Throwable) {
+                        Log.e("API", "Error al actualizar tarea: ${t.message}", t)
+                    }
+                })
+            } else {
+                // Agregar nueva tarea
+                val nuevaTarea = Tarea(
+                    id = null,
+                    fechaCreacion = fechaCreacion,
+                    nombre = nombre,
+                    descripcion = descripcion,
+                    fechaVencimiento = fechaVencimiento,
+                    estado = estadoSeleccionado,
+                    etiqueta = etiquetaSeleccionada,
+                    prioridad = prioridad
+                )
 
-            //Snackbar.make(view, nombre.text, Snackbar.LENGTH_LONG)
-                //.setAction("Action", null)
-               // .setAnchorView(R.id.fab).show()
-            //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                api.add(nuevaTarea).enqueue(object : Callback<Tarea> {
+                    override fun onResponse(call: Call<Tarea>, response: Response<Tarea>) {
+                        if (response.isSuccessful) {
+                            Snackbar.make(requireView(), "Tarea Agregada", Snackbar.LENGTH_SHORT).show()
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, TareasViewFragment())
+                                .commit()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Tarea>, t: Throwable) {
+                        Log.e("API", "Error al agregar tarea: ${t.message}", t)
+                    }
+                })
+            }
         }
 
+        // Botones inferiores
         binding.btnVerTodos.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()!!
-                .replace(R.id.fragment_container, TareasViewFragment()).commit()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, TareasViewFragment())
+                .commit()
         }
 
         binding.btnVerContactos.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()!!
-                .replace(R.id.fragment_container, ContactoFragment()).commit()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ContactoFragment())
+                .commit()
         }
     }
 

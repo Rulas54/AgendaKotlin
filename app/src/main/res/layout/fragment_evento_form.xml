@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.eventos.EventoFormFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTitulo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Título del Evento"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:maxLength="100" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDescripcion"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Descripción del Evento"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/tilTitulo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:gravity="top"
+                    android:maxLength="500" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUbicacion"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Ubicación"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/tilDescripcion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUbicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxLength="200" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:id="@+id/tvFechaInicioLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha y Hora de Inicio:"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/tilUbicacion"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+                android:id="@+id/btnFechaInicio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar Fecha y Hora"
+                android:textAlignment="viewStart"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="8dp"
+                app:icon="@drawable/baseline_add_alarm_24"
+                app:iconGravity="start"
+                app:iconPadding="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvFechaInicioLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+                android:id="@+id/tvFechaFinLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha y Hora de Fin:"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/btnFechaInicio"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+                android:id="@+id/btnFechaFin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar Fecha y Hora"
+                android:textAlignment="viewStart"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="8dp"
+                app:icon="@drawable/baseline_add_alarm_24"
+                app:iconGravity="start"
+                app:iconPadding="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvFechaFinLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+                android:id="@+id/tvParticipantesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Participantes:"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/btnFechaFin"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupParticipantes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:chipSpacingHorizontal="8dp"
+                app:chipSpacingVertical="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvParticipantesLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+                android:id="@+id/btnSeleccionarParticipantes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar Participantes"
+                android:layout_marginTop="68dp"
+                app:layout_constraintTop_toBottomOf="@+id/chipGroupParticipantes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/white"
+                app:icon="@drawable/baseline_account_box_24"
+                app:iconGravity="start"
+                app:iconPadding="8dp" app:layout_constraintHorizontal_bias="0.0"/>
+        <Button
+                android:id="@+id/btnGuardarEvento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Guardar Evento"
+                android:layout_marginTop="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/btnSeleccionarParticipantes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:backgroundTint="@color/baby_blue"
+                android:textColor="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

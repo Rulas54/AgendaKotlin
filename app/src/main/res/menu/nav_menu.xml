@@ -17,5 +17,10 @@
                 android:id="@+id/nav_contacto"
                 android:icon="@drawable/nav_contacto"
                 android:title="@string/menu_contacto"/>
+
+        <item
+                android:id="@+id/nav_eventos"
+
+                android:title="Menu Eventos" android:icon="@drawable/baseline_alarm_24"/>
     </group>
 </menu>

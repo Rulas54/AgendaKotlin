@@ -1,6 +1,7 @@
 package udelp.edu.mx.agendakotlin.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class Contacto(
@@ -11,4 +12,4 @@ data class Contacto(
     @SerializedName("numeroAdicional") val numeroAdicional: List<String>?,
     @SerializedName("correoAdicional") val correoAdicional: List<String>?,
     @SerializedName("direccion") val direccion: String?,
-)
+): Serializable

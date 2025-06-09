@@ -1,5 +1,6 @@
 package udelp.edu.mx.agendakotlin.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import udelp.edu.mx.agendakotlin.R
+import udelp.edu.mx.agendakotlin.contacto_form
 import udelp.edu.mx.agendakotlin.model.Evento
 
 class EventoAdapter(
@@ -29,7 +31,6 @@ class EventoAdapter(
 
     override fun getItemCount(): Int = eventosFiltrados.size
 
-
     fun filtrar(texto: String) {
         val textoLower = texto.lowercase()
         eventosFiltrados = if (textoLower.isEmpty()) {
@@ -43,7 +44,6 @@ class EventoAdapter(
         }
         notifyDataSetChanged()
     }
-
 
     inner class EventoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val lblTitulo = itemView.findViewById<TextView>(R.id.lblTitulo)
@@ -66,4 +66,3 @@ class EventoAdapter(
         }
     }
 }
-

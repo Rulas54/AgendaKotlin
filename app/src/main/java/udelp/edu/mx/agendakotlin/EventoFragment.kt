@@ -2,11 +2,11 @@ package udelp.edu.mx.agendakotlin
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -51,7 +51,18 @@ class EventoFragment : Fragment() {
                     Log.d("EventoFragment", "Eventos recibidos: ${eventosOriginal.size}")
 
                     adapter = EventoAdapter(eventosOriginal) { eventoSeleccionado ->
-                        Log.d("EventoFragment", "Editar evento: ${eventoSeleccionado.titulo}")
+                        // Crear bundle con datos para pasar a EventoForm
+                        val bundle = Bundle().apply {
+                            putSerializable("evento_a_editar", eventoSeleccionado)
+                        }
+                        val eventoForm = EventoForm()
+                        eventoForm.arguments = bundle
+
+
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, eventoForm)
+                            ?.addToBackStack(null)
+                            ?.commit()
                     }
 
                     recyclerView.adapter = adapter
@@ -70,7 +81,7 @@ class EventoFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (::adapter.isInitialized) {  // Evitar llamar antes de asignar adapter
+                if (::adapter.isInitialized) {
                     adapter.filtrar(newText ?: "")
                 }
                 return true
@@ -81,8 +92,8 @@ class EventoFragment : Fragment() {
         btnAdd.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.fragment_container, EventoForm())
+                ?.addToBackStack(null)
                 ?.commit()
-            arguments?.putInt("Evento_ID", 0)
         }
     }
 

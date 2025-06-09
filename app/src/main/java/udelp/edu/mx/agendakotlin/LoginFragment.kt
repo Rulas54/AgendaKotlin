@@ -1,5 +1,6 @@
 package udelp.edu.mx.agendakotlin
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -84,6 +85,8 @@ class LoginFragment : Fragment() {
                             if (response.isSuccessful && null != response.body()) {
 
                                 val usuarioResponse = response.body()
+                                val sharedPreferences = requireContext().getSharedPreferences("sesion", Context.MODE_PRIVATE)
+                                sharedPreferences.edit().putString("correo_usuario", usuario?.email).apply()
                                 var mensaje ="Redirigiendo al menu"
 
                                 if(usuarioResponse?.code != "200"){

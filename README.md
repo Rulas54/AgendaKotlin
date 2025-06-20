@@ -32,7 +32,7 @@
 ## 🧑‍💻 Autor
 
 **Luis Raúl Reyes Vázquez**  
-[LinkedIn](https://www.linkedin.com/in/luis-raúl-reyes-vazquez)  
+[LinkedIn](https://www.linkedin.com/in/luis-raúl-reyes-vazquez-ba310a15a/)  
 [GitHub](https://github.com/Rulas54)
 
 ---
@@ -61,7 +61,7 @@
 ## 🧑‍💻 Author
 
 **Luis Raúl Reyes Vázquez**  
-[LinkedIn](https://www.linkedin.com/in/luis-raúl-reyes-vazquez)  
+[LinkedIn](https://www.linkedin.com/in/luis-raúl-reyes-vazquez-ba310a15a/)  
 [GitHub](https://github.com/Rulas54)
 
 ## 🖼️ Screenshots
